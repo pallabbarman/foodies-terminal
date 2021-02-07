@@ -1,3 +1,12 @@
+.banner{
+    margin-top: 70px;
+}
+nav{
+    background-color:whitesmoke;
+}
+nav li:hover{
+    background-color: gray;
+}
 #items{
     display: flex; 
     flex-wrap: wrap;

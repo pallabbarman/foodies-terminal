@@ -50,7 +50,7 @@ const foodDetailInfo = foods => {
     foodItem.innerHTML = `
     <img src="${foods.strMealThumb}"><br><br>
     <h3 id="item-name">${foods.strMeal}</h3>
-    <button id="back" class="btn btn-primary">Back</button><br><br>
+    <button id="back" class="btn btn-outline-primary">Back</button><br><br>
     <h5>Ingredients</h5>`;
 
     // ingredients by list item 
