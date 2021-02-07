@@ -32,3 +32,10 @@
     height: 400px;
     border-radius: 10px;
 }
+#item-name{
+    width: 80%;
+    float: left;
+}
+#back{
+    float: right;
+}

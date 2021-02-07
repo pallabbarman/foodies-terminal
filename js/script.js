@@ -1,16 +1,21 @@
 // find food item 
 document.getElementById('search-item').addEventListener('click', () => {
     const foodName = document.getElementById('food').value;
-    fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${foodName}`)
-        .then(res => res.json())
-        .then(data => displayFood(data.meals))
-        .catch(error => alert("Please search foods by their first letter!"));
+    if (!foodName) {
+        alert("Please search an item!");
+    } else {
+        fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${foodName}`)
+            .then(res => res.json())
+            .then(data => displayFood(data.meals))
+            .catch(error => alert("Please search by valid name!"));
+    }
     document.getElementById('food').value = "";
 })
 
 // display food picture and name 
 const displayFood = items => {
     const showFood = document.getElementById('items');
+    showFood.innerHTML = "";
     items.forEach(item => {
         const foodItem = document.createElement('div');
         foodItem.className = 'food-item';
@@ -28,31 +33,39 @@ const displayFoodDetail = id => {
     fetch(url)
         .then(res => res.json())
         .then(data => foodDetailInfo(data.meals[0]))
-        .catch(error => alert("Please search foods by their first letter!"));
+        .catch(error => alert("Please search by valid name!"));
 }
 
-// details foodItem info 
+// food items details 
 const foodDetailInfo = foods => {
+
+    // show details page 
     document.getElementById('items').style.display = "none";
     document.getElementById('search-item').style.display = "none";
     document.getElementById('food').style.display = "none";
     document.getElementById('itemsDetails').style.display = "block";
+
+    // show details item 
     const foodItem = document.getElementById('itemsDetails');
     foodItem.innerHTML = `
     <img src="${foods.strMealThumb}"><br><br>
-    <h3>${foods.strMeal}</h3><br>
-    <h5>Ingredients</h5><br>
-    <li>${foods.strIngredient1}</li>
-    <li>${foods.strIngredient2}</li>
-    <li>${foods.strIngredient3}</li>
-    <li>${foods.strIngredient4}</li>
-    <li>${foods.strIngredient5}</li>
-    <li>${foods.strIngredient6}</li>
-    <li>${foods.strIngredient7}</li>
-    <li>${foods.strIngredient8}</li>
-    <li>${foods.strIngredient9}</li>
-    <li>${foods.strIngredient10}</li><br>
-    <button class="btn btn-primary" id="back">Back</button>`;
+    <h3 id="item-name">${foods.strMeal}</h3>
+    <button id="back" class="btn btn-primary">Back</button><br><br>
+    <h5>Ingredients</h5>`;
+
+    // ingredients by list item 
+    const ul = document.createElement('ul');
+    const ingredientsList = [foods.strIngredient1, foods.strIngredient2, foods.strIngredient3, foods.strIngredient4, foods.strIngredient5, foods.strIngredient6, foods.strIngredient7, foods.strIngredient8, foods.strIngredient9, foods.strIngredient10, foods.strIngredient11, foods.strIngredient12, foods.strIngredient13, foods.strIngredient14, foods.strIngredient15, foods.strIngredient16, foods.strIngredient17, foods.strIngredient18, foods.strIngredient19, foods.strIngredient20];
+    ingredientsList.forEach(foods => {
+        const li = document.createElement('li');
+        if (foods != null && foods != '') {
+            li.innerText = foods;
+            ul.appendChild(li);
+        }
+    });
+    foodItem.appendChild(ul);
+
+    // back button event listener 
     document.getElementById("back").addEventListener("click", () => {
         document.getElementById('itemsDetails').style.display = "none";
         document.getElementById('items').style.display = "flex";
