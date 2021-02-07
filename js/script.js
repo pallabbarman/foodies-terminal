@@ -73,3 +73,8 @@ const foodDetailInfo = foods => {
         document.getElementById('food').style.display = "block";
     });
 }
+
+// reload 
+document.getElementById('reload').addEventListener('click',()=>{
+    window.location.reload();
+})

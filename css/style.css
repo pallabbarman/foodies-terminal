@@ -12,6 +12,7 @@ nav li:hover{
     flex-wrap: wrap;
     padding:0 100px;
     grid-gap: 37px;
+    justify-content: center;
 } 
 #items img{
     width: 300px;
