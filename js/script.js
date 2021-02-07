@@ -1,7 +1,7 @@
-// find food item by 1st letter 
+// find food item 
 document.getElementById('search-item').addEventListener('click', () => {
     const foodName = document.getElementById('food').value;
-    fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${foodName}`)
+    fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${foodName}`)
         .then(res => res.json())
         .then(data => displayFood(data.meals))
         .catch(error => alert("Please search foods by their first letter!"));
@@ -15,9 +15,8 @@ const displayFood = items => {
         const foodItem = document.createElement('div');
         foodItem.className = 'food-item';
         const foodInfo = `
-        <img src="${item.strMealThumb}"><br><br>
-        <h4>${item.strMeal}</h4><br>
-        <button onclick="displayFoodDetail('${item.idMeal}')">Details</button>`;
+        <img onclick="displayFoodDetail('${item.idMeal}')" src="${item.strMealThumb}"><br><br>
+        <h4 onclick="displayFoodDetail('${item.idMeal}')">${item.strMeal}</h4><br>`;
         foodItem.innerHTML = foodInfo;
         showFood.appendChild(foodItem);
     });
@@ -33,11 +32,31 @@ const displayFoodDetail = id => {
 }
 
 // details foodItem info 
-const foodDetailInfo = foods=>{
+const foodDetailInfo = foods => {
     document.getElementById('items').style.display = "none";
+    document.getElementById('search-item').style.display = "none";
+    document.getElementById('food').style.display = "none";
     document.getElementById('itemsDetails').style.display = "block";
-    const foodItem=document.getElementById('itemsDetails');
-    foodItem.innerHTML=`
-    <img src="${foods.strMealThumb}">
-    <h4>${foods.strMeal}</h4>`;
+    const foodItem = document.getElementById('itemsDetails');
+    foodItem.innerHTML = `
+    <img src="${foods.strMealThumb}"><br><br>
+    <h3>${foods.strMeal}</h3><br>
+    <h5>Ingredients</h5><br>
+    <li>${foods.strIngredient1}</li>
+    <li>${foods.strIngredient2}</li>
+    <li>${foods.strIngredient3}</li>
+    <li>${foods.strIngredient4}</li>
+    <li>${foods.strIngredient5}</li>
+    <li>${foods.strIngredient6}</li>
+    <li>${foods.strIngredient7}</li>
+    <li>${foods.strIngredient8}</li>
+    <li>${foods.strIngredient9}</li>
+    <li>${foods.strIngredient10}</li><br>
+    <button class="btn btn-primary" id="back">Back</button>`;
+    document.getElementById("back").addEventListener("click", () => {
+        document.getElementById('itemsDetails').style.display = "none";
+        document.getElementById('items').style.display = "flex";
+        document.getElementById('search-item').style.display = "block";
+        document.getElementById('food').style.display = "block";
+    });
 }
